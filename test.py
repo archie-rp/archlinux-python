@@ -52,16 +52,54 @@ while sair != "x":
 	if rsp == "x":
 		sair = "x"
 	elif rsp == "0":
-		print (rsp)
+		os.system("clear")
+		print (linha)
+		print (colored("AddUser: ", 'cyan', attrs=['bold']))
+		print (linha)
+		utilizador=input('Nome:')
+		print('\nuseradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash', utilizador)
+		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "1":
-		print (rsp)
+		os.system("clear")
+		print (linha)
+		print (colored("GitHub: ", 'cyan', attrs=['bold']))
+		print (linha)
+		print ('Instalar Git e xclip ...')
+		print('\nsudo pacman -S git xclip')
+		github_utilizador=input(colored('\nGitHub','yellow')+ colored('@', 'red') + 'Nome:')
+		print ('git config --global user.name', github_utilizador)
+		github_email=input(colored('GitHub','yellow') + colored('@', 'red') +  'Email:')
+		print ('git config --global user.email', github_email )
+		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "2":
 		print (rsp)
 	elif rsp == "3":
-		print (rsp)
+		os.system("clear")
+		print (linha)
+		print (colored("Limpar Apps: ", 'cyan', attrs=['bold']))
+		print (linha)
+		print('\nsudo pacman -Rsc --noconfirm $(pacman -Qqdt)')
+		os.system('sudo pacman -Rsc --noconfirm $(pacman -Qqdt)')
+		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	else:
 		erro = colored('Opção não válida', 'red', attrs=['bold'])
 	os.system("clear")
+
+
+
+#chdir(path)
+#Change the current working directory to path.
+
+#getcwd()
+#Return a string representing the current working directory.
+
+#listdir(path)
+#Return a list containing the names of the entries in the directory given by path. The list is in arbitrary order. It does not include the special entries '.' and '..' even if they are present in the directory.
+
+#mkdir(path[, mode])
+#Create a directory named path with numeric mode mode. The default mode is 0777 (octal). On some systems, mode is ignored. Where it is used, the current umask value is first masked out. If the directory already exists, OSError is raised.
+#remove(path) remover ficheiros
+#os.removedirs('foo/bar/baz')
 #shell = input('\n' + username + '@' + hostname + ':' + cwd + '> ')
 #print 
 #username = input("Username: ")
