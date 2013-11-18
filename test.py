@@ -23,6 +23,10 @@ else:
 # Variaveis
 global m_Home
 m_Home = '/home/' + os.getlogin()
+if not os.path.exists('.apps.txt'):
+	pass
+else:
+	os.remove('.apps.txt')
 #Funcoes
 
 def instalar(x):
@@ -32,8 +36,40 @@ def instalar(x):
 	print (linha)
 	print ("A installar ..", x)
 	os.system('sudo yaourt -S --noconfirm ' + x)
-	#input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	pass
+
+def yaourt():
+	os.system("clear")
+	print (linha)
+	print(colored("\nInstalar yaourt ", 'green' ))
+	print (linha)
+	os.system('sudo cp /etc/pacman.conf pacman.conf')
+	os.system('sudo cp /etc/sudoers sudoers')
+	os.system("sudo sed -e 's/\sSigLevel/#SigLevel/' pacman.conf > /etc/pacman.conf")
+	os.system("sudo sed -e 's/#\s%wheel\sALL=(ALL)\sALL/%wheel\sALL=(ALL)\sALL/' sudoers > /etc/sudoers")
+	os.system("sudo echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf")
+	os.system('sudo rm pacman.conf sudoers')
+	os.system('sudo pacman -Syyu --noconfirm yaourt ')
+	instalar('yaourt')
+	pass
+def servicos():
+	os.system("clear")
+	print (linha)
+	print(colored("\nAdicionar Servicos", 'green'))
+	print (linha)
+	print (colored("A iniciar Serviços!", 'yellow', attrs=['bold']))
+	os.system('sudo systemctl enable upower')
+	os.system('sudo systemctl enable tlp')
+	os.system('sudo systemctl enable smbd')
+	os.system('sudo systemctl enable nmbd')
+	os.system('sudo systemctl enable smbnetfs')
+	os.system('sudo systemctl enable rpc-idmapd')
+	os.system('sudo systemctl enable rpc-mountd')
+	os.system('sudo systemctl enable systemd-readahead-collect')
+	os.system('sudo systemctl enable systemd-readahead-replay')
+	input(colored("\nMenu principal ", 'green' )+ "<enter>")
+
+
 #Programa
 print ("Menu")
 menu = ["AddUser","GitHub","Apps","Limpar Apps"]
@@ -78,7 +114,6 @@ while sair != "x":
 		print ('git config --global user.email', github_email )
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "2":
-		#instalar('')
 		os.system("clear")
 		print (linha)
 		print (colored("Instalar Apps: ", 'cyan', attrs=['bold']))
@@ -109,7 +144,12 @@ while sair != "x":
  			chromium transmission-gtk pidgin skype gst-plugins-base \
  			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
  			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
- 			libdvdread libdvdnav libdvdcss cdrdao')
+ 			weechat imap weeplugins-git nano-syntax-highlighting-git \
+ 			adwaita-x-dark-and-light-theme compton-git gnome-theme-adwaita \
+ 			mediterraneannight-theme gtk-theme-hope faenza-icon-theme zukitwo-themes \
+ 			gtk-theme-elementary mate-icon-theme-faenza ttf-dejavu tamsyn-font \
+ 			ttf-ubuntu-font-family zsh-syntax-highlighting \
+ 			libdvdread libdvdnav libdvdcss sudo systemctl')
 			os.system('pacman -Q -q >> .apps.txt')
 		apps = open(pasta + '/' + '.apps.txt', 'r+')
 		pkg = apps.read()
@@ -117,13 +157,22 @@ while sair != "x":
 		pkg = pkg.split('\n') 
 		instpkg=len(pkgtoinstall)
 		inst = []
-		for linha in pkgtoinstall:
-			sn=linha in pkg	
+		if 'yaourt' in pkg:
+			pass
+		else:
+			yaourt()
+			pass
+		for linhas in pkgtoinstall:
+			sn=linhas in pkg	
 			if sn == False:
-				inst.append(linha) 
+				inst.append(linhas)
+		servicos()
+		os.system("clear")
+		print(linha)
 		print (colored("Todas as aplicações estão instaladas!", 'green', attrs=['bold', 'blink']))
+		print (colored("Todos os serviços iniciados!", 'green', attrs=['bold', 'blink']))
+		print(linha)
 		os.remove('.apps.txt')
-
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "3":
 		os.system("clear")
