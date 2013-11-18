@@ -1,8 +1,5 @@
 #! /usr/bin/env python
 #Includes
-
-import subprocess
-from subprocess import call
 import os
 import sys
 from termcolor import colored, cprint
@@ -26,7 +23,17 @@ else:
 # Variaveis
 global m_Home
 m_Home = '/home/' + os.getlogin()
+#Funcoes
 
+def instalar(x):
+	os.system("clear")
+	print (linha)
+	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
+	print (linha)
+	print ("A installar ..", x)
+	os.system('sudo yaourt -S --noconfirm ' + x)
+	#input(colored("\nMenu principal ", 'green' )+ "<enter>")
+	pass
 #Programa
 print ("Menu")
 menu = ["AddUser","GitHub","Apps","Limpar Apps"]
@@ -64,15 +71,60 @@ while sair != "x":
 		print (linha)
 		print (colored("GitHub: ", 'cyan', attrs=['bold']))
 		print (linha)
-		print ('Instalar Git e xclip ...')
-		print('\nsudo pacman -S git xclip')
+		instalar('xclip git')		
 		github_utilizador=input(colored('\nGitHub','yellow')+ colored('@', 'red') + 'Nome:')
 		print ('git config --global user.name', github_utilizador)
 		github_email=input(colored('GitHub','yellow') + colored('@', 'red') +  'Email:')
 		print ('git config --global user.email', github_email )
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "2":
-		print (rsp)
+		#instalar('')
+		os.system("clear")
+		print (linha)
+		print (colored("Instalar Apps: ", 'cyan', attrs=['bold']))
+		print (linha)
+		pasta=os.getcwd()
+		if not os.path.exists('.apps.txt'):
+			open('.apps.txt', 'w').close()
+			pkgtoinstall=('mpd mpc xf86-input-synaptics alsa-utils alsa-plugins \
+ 			xorg-server xorg-xinit xorg-server-utils xorg-twm xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
+ 			xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
+ 			xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
+			xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
+			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd \
+            xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh pcmanfm thunar lxappearance \
+ 			mirage file-roller udisks udisks2 polkit polkit-gnome gvfs \
+ 			gvfs-smb bash-completion udiskie chromium zip unrar tar autofs \
+ 			ntfs-3g thunar-archive-plugin thunar-volman pidgin skype curl \
+ 			git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
+ 			bc rsync mlocate bash-completion pkgstats lib32-alsa-plugins \
+ 			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh rssh \
+ 			nfs-utils samba smbnetfs tlp xf86-input-mouse xf86-input-keyboard \
+ 			gamin xf86-video-intel intel-dri libva-intel-driver lib32-mesa-libgl \
+ 			gtk-theme-numix-git rxvt-unicode pcmanfm gvfs scrot thunar tumbler \
+ 			leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
+ 			wicd wicd-gtk android-sdk android-apktool android-sdk-build-tools \
+ 			android-sdk-platform-tools android-udev eclipse-android libmtp\
+ 			gvfs-mtp jdk7-openjdk icedtea-web-java7 sublime-text htop \
+ 			chromium transmission-gtk pidgin skype gst-plugins-base \
+ 			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
+ 			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
+ 			libdvdread libdvdnav libdvdcss cdrdao')
+			os.system('pacman -Q -q >> .apps.txt')
+		apps = open(pasta + '/' + '.apps.txt', 'r+')
+		pkg = apps.read()
+		pkgtoinstall = pkgtoinstall.split()
+		pkg = pkg.split('\n') 
+		instpkg=len(pkgtoinstall)
+		inst = []
+		for linha in pkgtoinstall:
+			sn=linha in pkg	
+			if sn == False:
+				inst.append(linha) 
+		print (colored("Todas as aplicações estão instaladas!", 'green', attrs=['bold', 'blink']))
+		os.remove('.apps.txt')
+
+		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "3":
 		os.system("clear")
 		print (linha)
@@ -89,6 +141,8 @@ while sair != "x":
 
 #chdir(path)
 #Change the current working directory to path.
+#pacman -Qe
+
 
 #getcwd()
 #Return a string representing the current working directory.
@@ -100,33 +154,3 @@ while sair != "x":
 #Create a directory named path with numeric mode mode. The default mode is 0777 (octal). On some systems, mode is ignored. Where it is used, the current umask value is first masked out. If the directory already exists, OSError is raised.
 #remove(path) remover ficheiros
 #os.removedirs('foo/bar/baz')
-#shell = input('\n' + username + '@' + hostname + ':' + cwd + '> ')
-#print 
-#username = input("Username: ")
-#print (username)
-#print ("#"*(31-7))
-#print ("SHELL\n")
-#import os
-#cmd = 'ls -al'
-#os.system(cmd)
-#popen
-#f = os.popen('date')
-#now = f.read()
-#print ("Today is ", now)
-
-#Subprocess
-#import subprocess
-#subprocess.call("command1")
-#subprocess.call(["command1", "arg1", "arg2"])
-
-#Output
-#import subprocess
-#p = subprocess.Popen("ls /", stdout=subprocess.PIPE, shell=True)
-#(output, err) = p.communicate()
-#print ("OUTPUT:\n", output)
-
-#print line 
-#import subprocess
-#p = subprocess.Popen(["ls", "-l", "/"], stdout=subprocess.PIPE, shell=False)
-#output, err = p.communicate()
-#print ("*** Running ls -l command ***\n", output)
