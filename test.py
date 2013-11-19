@@ -23,11 +23,50 @@ else:
 # Variaveis
 global m_Home
 m_Home = '/home/' + os.getlogin()
-if not os.path.exists('.apps.txt'):
-	pass
-else:
-	os.remove('.apps.txt')
+pasta=os.getcwd()
+linha =  colored("#"*e, 'cyan')
+sair = ""
+i = 0
+u = 0
+erro = ""
+
+def ficheiro(nome):
+	if not os.path.exists(nome):
+		pass
+	else:
+		os.remove(nome)
+	
+
+
 #Funcoes
+def butil(u):
+	os.system("users >> .users.txt")
+	users = open(pasta + '/' + '.users.txt', 'r+')
+	users = users.read()
+	ficheiro('.users.txt')
+	utilizadores= users.split('\n') 
+	u=int(u)
+	u=utilizadores[u]
+	#print (u)
+	return u
+
+def listusers():
+	os.system("clear")
+	print (linha)
+	print(colored("Utilizadores", 'green' ))
+	print (linha)
+	os.system("users >> .users.txt")
+	users = open(pasta + '/' + '.users.txt', 'r+')
+	users = users.read()
+	ficheiro('.users.txt')
+	utilizadores= users.split('\n') 
+	print ('\nExistentes:')
+	for u in range(len(utilizadores)):
+		if utilizadores[u] == '':
+			pass
+		else:
+			print (colored(u , 'yellow') ,utilizadores[u])
+
 
 def instalar(x):
 	os.system("clear")
@@ -69,18 +108,17 @@ def servicos():
 	os.system('sudo systemctl enable systemd-readahead-replay')
 	input(colored("\nMenu principal ", 'green' )+ "<enter>")
 
+#Funcoes globais
+ficheiro('.users.txt')
+ficheiro('.apps.txt')
 
 #Programa
 print ("Menu")
 menu = ["AddUser","GitHub","Apps","Limpar Apps"]
-sair = ""
-i = 0
-erro = ""
 os.system("clear")
 while sair != "x":
 	text = colored('Arch Linux', 'blue', attrs=['reverse', 'blink'])
 	print(text)
-	linha =  colored("#"*e, 'cyan')
 	print (linha)
 	print (name)
 	print (host)
@@ -96,12 +134,38 @@ while sair != "x":
 		sair = "x"
 	elif rsp == "0":
 		os.system("clear")
-		print (linha)
-		print (colored("AddUser: ", 'cyan', attrs=['bold']))
-		print (linha)
-		utilizador=input('Nome:')
-		print('\nuseradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash', utilizador)
-		input(colored("\nMenu principal ", 'green' )+ "<enter>")
+		print(linha)
+		listusers()
+		print (colored("Gestor de Utilizadores:", 'cyan', attrs=['bold']))
+		print (colored('0' , 'yellow') ,'Adicionar Utilizador')
+		print (colored('1' , 'yellow') ,'Remover Utilizador')
+		print(linha)
+		r = input('Selecionar:')
+
+		if r=='0':
+			os.system('clear')
+			print (linha)
+			print (colored("Adicionar Utilizador: ", 'cyan', attrs=['bold']))
+			print (linha)
+			utilizador=input('Nome:')
+			print('\nuseradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash', utilizador)
+			print (colored("Password Utilizador: ", 'red', attrs=['bold']))
+			print('\npasswd ', utilizador)
+			input(colored("\nMenu principal ", 'green' )+ "<enter>")	
+		elif r=='1':
+			print (linha)
+			print (colored("Remover Utilizador: ", 'red', attrs=['bold']))
+			print (linha)
+			listusers()
+			rsp=input(colored('Número: ', 'green'))
+			print('\nuserdel -r', butil(rsp))
+			input(colored("\nMenu principal ", 'green' )+ "<enter>")
+		else:
+			pass
+
+		
+ 
+		
 	elif rsp == "1":
 		os.system("clear")
 		print (linha)
@@ -118,11 +182,13 @@ while sair != "x":
 		print (linha)
 		print (colored("Instalar Apps: ", 'cyan', attrs=['bold']))
 		print (linha)
-		pasta=os.getcwd()
 		if not os.path.exists('.apps.txt'):
 			open('.apps.txt', 'w').close()
-			pkgtoinstall=('mpd mpc xf86-input-synaptics alsa-utils alsa-plugins \
- 			xorg-server xorg-xinit xorg-server-utils xorg-twm xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
+			dri="xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
+			xf86-video-intel intel-dri libva-intel-driver lib32-mesa-libgl"
+			pkgtoinstall=('mpd mpc alsa-utils alsa-plugins \
+ 			xorg-server xorg-xinit xorg-server-utils xorg-twm \
+ 			xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
  			xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
  			xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
 			xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
@@ -134,14 +200,13 @@ while sair != "x":
  			git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
  			bc rsync mlocate bash-completion pkgstats lib32-alsa-plugins \
  			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh rssh \
- 			nfs-utils samba smbnetfs tlp xf86-input-mouse xf86-input-keyboard \
- 			gamin xf86-video-intel intel-dri libva-intel-driver lib32-mesa-libgl \
- 			gtk-theme-numix-git rxvt-unicode pcmanfm gvfs scrot thunar tumbler \
+ 			nfs-utils samba smbnetfs tlp gamin gtk-theme-numix-git rxvt-unicode \
+ 			pcmanfm gvfs scrot thunar tumbler \
  			leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
  			wicd wicd-gtk android-sdk android-apktool android-sdk-build-tools \
  			android-sdk-platform-tools android-udev eclipse-android libmtp\
  			gvfs-mtp jdk7-openjdk icedtea-web-java7 sublime-text htop \
- 			chromium transmission-gtk pidgin skype gst-plugins-base \
+ 			chromium firefox transmission-gtk pidgin skype gst-plugins-base \
  			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
  			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
  			weechat imap weeplugins-git nano-syntax-highlighting-git \
@@ -157,6 +222,9 @@ while sair != "x":
 		pkg = pkg.split('\n') 
 		instpkg=len(pkgtoinstall)
 		inst = []
+		dr=input('Instalar Drivers?(s/n)')
+		if dr == 's':
+			instalar(dri)
 		if 'yaourt' in pkg:
 			pass
 		else:
@@ -172,7 +240,7 @@ while sair != "x":
 		print (colored("Todas as aplicações estão instaladas!", 'green', attrs=['bold', 'blink']))
 		print (colored("Todos os serviços iniciados!", 'green', attrs=['bold', 'blink']))
 		print(linha)
-		os.remove('.apps.txt')
+		ficheiro('.apps.txt')
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "3":
 		os.system("clear")
