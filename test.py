@@ -40,14 +40,15 @@ def ficheiro(nome):
 
 #Funcoes
 def butil(u):
-	os.system("users >> .users.txt")
+	lista=("cat /etc/passwd | grep '/home' | cut -d: -f1")
+	os.system(lista + " >> .users.txt")
 	users = open(pasta + '/' + '.users.txt', 'r+')
 	users = users.read()
 	ficheiro('.users.txt')
 	utilizadores= users.split('\n') 
 	u=int(u)
 	u=utilizadores[u]
-	#print (u)
+	print (u)
 	return u
 
 def listusers():
@@ -55,7 +56,9 @@ def listusers():
 	print (linha)
 	print(colored("Utilizadores", 'green' ))
 	print (linha)
-	os.system("users >> .users.txt")
+	lista=("cat /etc/passwd | grep '/home' | cut -d: -f1")
+	os.system(lista + " >> .users.txt")
+	#os.system("users >> .users.txt")
 	users = open(pasta + '/' + '.users.txt', 'r+')
 	users = users.read()
 	ficheiro('.users.txt')
@@ -114,7 +117,7 @@ ficheiro('.apps.txt')
 
 #Programa
 print ("Menu")
-menu = ["AddUser","GitHub","Apps","Limpar Apps"]
+menu = ["Utilizadores","GitHub","Apps","Limpar Apps"]
 os.system("clear")
 while sair != "x":
 	text = colored('Arch Linux', 'blue', attrs=['reverse', 'blink'])
@@ -148,18 +151,18 @@ while sair != "x":
 			print (colored("Adicionar Utilizador: ", 'cyan', attrs=['bold']))
 			print (linha)
 			utilizador=input('Nome:')
-			print('\nuseradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash', utilizador)
+			os.system('sudo useradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash ' + utilizador)
 			print (colored("Password Utilizador: ", 'red', attrs=['bold']))
-			print('\npasswd ', utilizador)
+			os.system('\nsudo passwd ' + utilizador)
 			input(colored("\nMenu principal ", 'green' )+ "<enter>")	
 		elif r=='1':
+			listusers()
 			print (linha)
 			print (colored("Remover Utilizador: ", 'red', attrs=['bold']))
 			print (linha)
-			listusers()
 			rsp=input(colored('Número: ', 'green'))
-			print('\nuserdel -r', butil(rsp))
-			input(colored("\nMenu principal ", 'green' )+ "<enter>")
+			os.system('sudo userdel -r ' + butil(rsp))
+			#input(colored("\nMenu principal ", 'green' )+ "<enter>")
 		else:
 			pass
 
@@ -173,9 +176,9 @@ while sair != "x":
 		print (linha)
 		instalar('xclip git')		
 		github_utilizador=input(colored('\nGitHub','yellow')+ colored('@', 'red') + 'Nome:')
-		print ('git config --global user.name', github_utilizador)
+		os.system('git config --global user.name ' + github_utilizador)
 		github_email=input(colored('GitHub','yellow') + colored('@', 'red') +  'Email:')
-		print ('git config --global user.email', github_email )
+		os.system('git config --global user.email ' + github_email )
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "2":
 		os.system("clear")
