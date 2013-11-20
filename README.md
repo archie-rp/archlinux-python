@@ -1,10 +1,10 @@
-GitHub Markup
-=============
+Arch Linux Personal Script
+===========================
 
-We use this library on GitHub when rendering your README or any other
-rich text file.
+Script made for distribution Arch linux.
 
-Markups
+
+How you use?
 -------
 
 The following markups are supported.  The dependencies listed are required if
