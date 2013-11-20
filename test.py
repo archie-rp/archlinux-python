@@ -36,7 +36,11 @@ def ficheiro(nome):
 	else:
 		os.remove(nome)
 	
-
+def oss():
+	uname = os.system('uname -a')
+	os.system('clear')
+	uname = str(uname)
+	tipo = uname.find('i686')
 
 #Funcoes
 def butil(u):
@@ -77,7 +81,7 @@ def instalar(x):
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
 	print ("A installar ..", x)
-	os.system('pacman -Syu --noconfirm' + x)
+	os.system('yaourt -Syyu --noconfirm' + x)
 	pass
 
 def yaourt():
@@ -85,6 +89,10 @@ def yaourt():
 	print (linha)
 	print(colored("\nInstalar yaourt ", 'green' ))
 	print (linha)
+	if tipo == '-1':
+		print ('mete multilib')
+	else:
+		print ('e sistema 32')
 	os.system(' cp /etc/pacman.conf pacman.conf')
 	os.system(' cp /etc/sudoers sudoers')
 	os.system(" sed -e 's/SigLevel\s\s\s/#SigLevel/' pacman.conf > pacman")
@@ -122,6 +130,7 @@ print ("Menu")
 menu = ["Utilizadores","GitHub","Apps","Limpar Apps"]
 os.system("clear")
 while sair != "x":
+	oss()
 	text = colored('Arch Linux', 'blue', attrs=['reverse', 'blink'])
 	print(text)
 	print (linha)
