@@ -77,7 +77,7 @@ def instalar(x):
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
 	print ("A installar ..", x)
-	os.system('yaourt -Syu --noconfirm' + x)
+	os.system('pacman -Syu --noconfirm' + x)
 	pass
 
 def yaourt():
@@ -92,7 +92,7 @@ def yaourt():
 	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/$arch' >> pacman")
 	os.system(' mv pacman /etc/pacman.conf')
 	os.system(' mv sudo /etc/sudoers')
-	os.system(' pacman -Syu --noconfirm yaourt ')
+	os.system(' pacman -Syu --noconfirm yaourt packer')
 	instalar('yaourt')
 	pass
 def servicos():
