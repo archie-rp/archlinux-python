@@ -238,7 +238,10 @@ while sair != "x":
 		for linhas in pkgtoinstall:
 			sn=linhas in pkg	
 			if sn == False:
-				inst.append(linhas)
+				#print (sn)
+				#input ('seguinte' + linhas)
+				#inst.append(linhas)
+				instalar(linhas)
 		servicos()
 		os.system("clear")
 		print(linha)
