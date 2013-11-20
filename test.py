@@ -85,13 +85,13 @@ def yaourt():
 	print (linha)
 	print(colored("\nInstalar yaourt ", 'green' ))
 	print (linha)
-	os.system('sudo cp /etc/pacman.conf pacman.conf')
-	os.system('sudo cp /etc/sudoers sudoers')
-	os.system("sudo sed -e 's/\sSigLevel/#SigLevel/' pacman.conf > /etc/pacman.conf")
-	os.system("sudo sed -e 's/#\s%wheel\sALL=(ALL)\sALL/%wheel\sALL=(ALL)\sALL/' sudoers > /etc/sudoers")
-	os.system("sudo echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf")
-	os.system('sudo rm pacman.conf sudoers')
-	os.system('sudo pacman -Syyu --noconfirm yaourt ')
+	os.system(' cp /etc/pacman.conf pacman.conf')
+	os.system(' cp /etc/sudoers sudoers')
+	os.system(" sed -e 's/SigLevel/#SigLevel/' pacman.conf > pacman")
+	os.system(" sed -e 's/#\s%wheel\sALL=(ALL)\sALL/%wheel\sALL=(ALL)\sALL/' sudoers > sudo")
+	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/\$arch' >> pacman.conf")
+	#os.system('sudo rm pacman.conf sudoers')
+	os.system(' pacman -Syyu --noconfirm yaourt ')
 	instalar('yaourt')
 	pass
 def servicos():
@@ -109,6 +109,7 @@ def servicos():
 	os.system('sudo systemctl enable rpc-mountd')
 	os.system('sudo systemctl enable systemd-readahead-collect')
 	os.system('sudo systemctl enable systemd-readahead-replay')
+	os.system('sudo modprobe vboxdrv')
 	input(colored("\nMenu principal ", 'green' )+ "<enter>")
 
 #Funcoes globais
