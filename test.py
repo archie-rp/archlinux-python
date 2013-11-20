@@ -37,13 +37,17 @@ def ficheiro(nome):
 		os.remove(nome)
 	
 def oss():
-	uname = os.system('uname -a')
-	os.system('clear')
-	uname = str(uname)
-	tipo = uname.find('i686')
-	if tipo == '-1':
+	uname = os.system('uname -a >> versao.txt')
+	versao = open(pasta + '/' + 'versao.txt', 'r+')
+	vt = versao.read()
+	ficheiro('versao.txt')
+	print (vt) 
+	sis = vt.find('x86_64')
+	if sis != -1:
+		print (sis)
 		print ('mete multilib')
 	else:
+		print (sis)
 		print ('e sistema 32')
 
 #Funcoes
