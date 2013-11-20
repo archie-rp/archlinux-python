@@ -77,7 +77,7 @@ def instalar(x):
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
 	print ("A installar ..", x)
-	os.system('sudo yaourt -S --noconfirm ' + x)
+	os.system('yaourt -Syu --noconfirm' + x)
 	pass
 
 def yaourt():
@@ -92,7 +92,7 @@ def yaourt():
 	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/$arch' >> pacman")
 	os.system(' mv pacman /etc/pacman.conf')
 	os.system(' mv sudo /etc/sudoers')
-	os.system(' pacman -Syyu --noconfirm yaourt ')
+	os.system(' pacman -Syu --noconfirm yaourt ')
 	instalar('yaourt')
 	pass
 def servicos():
@@ -203,7 +203,7 @@ while sair != "x":
  			gvfs-smb bash-completion udiskie chromium zip unrar tar autofs \
  			ntfs-3g thunar-archive-plugin thunar-volman pidgin skype curl \
  			git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
- 			bc rsync mlocate bash-completion pkgstats lib32-alsa-plugins \
+ 			bc rsync mlocate bash-completion pkgstats \
  			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh rssh \
  			nfs-utils samba smbnetfs tlp gamin gtk-theme-numix-git rxvt-unicode \
  			pcmanfm gvfs scrot thunar tumbler \
@@ -219,7 +219,7 @@ while sair != "x":
  			mediterraneannight-theme gtk-theme-hope faenza-icon-theme zukitwo-themes \
  			gtk-theme-elementary mate-icon-theme-faenza ttf-dejavu tamsyn-font \
  			ttf-ubuntu-font-family zsh-syntax-highlighting \
- 			libdvdread libdvdnav libdvdcss sudo systemctl')
+ 			libdvdread libdvdnav libdvdcss')
 			os.system('pacman -Q -q >> .apps.txt')
 		apps = open(pasta + '/' + '.apps.txt', 'r+')
 		pkg = apps.read()
@@ -243,7 +243,6 @@ while sair != "x":
 				#inst.append(linhas)
 				#instalar(linhas)
 				lapps = (lapps + " " + linhas)
-		print ("apps: " + lapps)
 		instalar(lapps)
 		input ('seguir apps')
 		servicos()
