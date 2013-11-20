@@ -226,7 +226,7 @@ while sair != "x":
 		pkgtoinstall = pkgtoinstall.split()
 		pkg = pkg.split('\n') 
 		instpkg=len(pkgtoinstall)
-		inst = []
+		lapps = ""
 		dr=input('Instalar Drivers?(s/n)')
 		if dr == 's':
 			instalar(dri)
@@ -241,7 +241,11 @@ while sair != "x":
 				#print (sn)
 				#input ('seguinte' + linhas)
 				#inst.append(linhas)
-				instalar(linhas)
+				#instalar(linhas)
+				lapps = (lapps + " " + linhas)
+		print ("apps: " + lapps)
+		instalar(lapps)
+		input ('seguir apps')
 		servicos()
 		os.system("clear")
 		print(linha)
