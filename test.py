@@ -89,8 +89,9 @@ def yaourt():
 	os.system(' cp /etc/sudoers sudoers')
 	os.system(" sed -e 's/SigLevel/#SigLevel/' pacman.conf > pacman")
 	os.system(" sed -e 's/#\s%wheel\sALL=(ALL)\sALL/%wheel\sALL=(ALL)\sALL/' sudoers > sudo")
-	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/\$arch' >> pacman.conf")
-	#os.system('sudo rm pacman.conf sudoers')
+	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/\$arch' >> pacman")
+	os.system(' mv pacman /etc/pacman.conf')
+	os.system(' mv sudo /etc/sudoers')
 	os.system(' pacman -Syyu --noconfirm yaourt ')
 	instalar('yaourt')
 	pass
