@@ -132,5 +132,4 @@ which
 xfsprogs
 xz
 yajl
-yaourt
 zlib
