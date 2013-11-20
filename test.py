@@ -190,7 +190,7 @@ while sair != "x":
 		if not os.path.exists('.apps.txt'):
 			open('.apps.txt', 'w').close()
 			dri="xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
-			xf86-video-intel intel-dri libva-intel-driver lib32-mesa-libgl"
+			xf86-video-intel intel-dri libva-intel-driver "
 			pkgtoinstall=('mpd mpc alsa-utils alsa-plugins \
  			xorg-server xorg-xinit xorg-server-utils xorg-twm \
  			xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
@@ -220,6 +220,7 @@ while sair != "x":
  			gtk-theme-elementary mate-icon-theme-faenza ttf-dejavu tamsyn-font \
  			ttf-ubuntu-font-family zsh-syntax-highlighting \
  			libdvdread libdvdnav libdvdcss')
+			lib32="lib32-mesa-libgl lib32-alsa-plugins"
 			os.system('pacman -Q -q >> .apps.txt')
 		apps = open(pasta + '/' + '.apps.txt', 'r+')
 		pkg = apps.read()
@@ -227,24 +228,21 @@ while sair != "x":
 		pkg = pkg.split('\n') 
 		instpkg=len(pkgtoinstall)
 		lapps = ""
-		dr=input('Instalar Drivers?(s/n)')
-		if dr == 's':
-			instalar(dri)
 		if 'yaourt' in pkg:
 			pass
 		else:
 			yaourt()
 			pass
+		dr=input('Instalar Drivers?(s/n)')
+		if dr == 's':
+			instalar(dri)
+
 		for linhas in pkgtoinstall:
 			sn=linhas in pkg	
 			if sn == False:
-				#print (sn)
-				#input ('seguinte' + linhas)
-				#inst.append(linhas)
-				#instalar(linhas)
 				lapps = (lapps + " " + linhas)
 		instalar(lapps)
-		input ('seguir apps')
+		input ('Aplicações instaladas !')
 		servicos()
 		os.system("clear")
 		print(linha)
