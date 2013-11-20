@@ -1,6 +1,7 @@
 Arch Linux Personal Script
 ===========================
 
+IS NOT DONE!
 Script made for distribution Arch linux.
 
 
