@@ -41,6 +41,10 @@ def oss():
 	os.system('clear')
 	uname = str(uname)
 	tipo = uname.find('i686')
+	if tipo == '-1':
+		print ('mete multilib')
+	else:
+		print ('e sistema 32')
 
 #Funcoes
 def butil(u):
@@ -89,10 +93,6 @@ def yaourt():
 	print (linha)
 	print(colored("\nInstalar yaourt ", 'green' ))
 	print (linha)
-	if tipo == '-1':
-		print ('mete multilib')
-	else:
-		print ('e sistema 32')
 	os.system(' cp /etc/pacman.conf pacman.conf')
 	os.system(' cp /etc/sudoers sudoers')
 	os.system(" sed -e 's/SigLevel\s\s\s/#SigLevel/' pacman.conf > pacman")
