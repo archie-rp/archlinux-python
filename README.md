@@ -46,7 +46,7 @@ Applications
 ----------
 
 Before install any application, will install -- `yaourt` , then install 
-basic stuff, some extra gtk-themes, icons and awesome wm.
+basic stuff, some extra gtk-themes, icons, etc.
 
 About
 ------------
