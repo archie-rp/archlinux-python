@@ -44,11 +44,14 @@ def oss():
 	vt = versao.read()
 	ficheiro('versao.txt')
 	#print (vt) 
+	lib32=" lib32-mesa-libgl lib32-alsa-plugins"
 	sis = vt.find('x86_64')
 	if sis != -1:
-		print ('Sistema x86_64') 
+		print ('Sistema x86_64')
+		instalar(lib32, 'pacman') 
 	else:
 		print ('Sistema x86')
+	return (sis)
 
 def butil(u):
 	lista=("cat /etc/passwd | grep '/home' | cut -d: -f1")
@@ -81,14 +84,21 @@ def listusers():
 		else:
 			print (colored(u , 'yellow') ,utilizadores[u])
 
-def instalar(x):
+def instalar(x,y):
 	os.system("clear")
 	print (linha)
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
 	print (colored("A installar :", 'green') + '"' + colored(x, 'blue') + '"')
-	os.system('pacman -Syyu --noconfirm ' + x + ' >> log.txt')
-	input("regista apps")
+	if y == 'pacman':
+		#print ('Pacman')
+		os.system('pacman -Syu --noconfirm ' + x )
+	else:
+		#print ('yaourt ')
+		#print('yaourt ' + x )
+		os.system('yaourt --noconfirm -S ' + x )
+
+	#input("regista apps")
 	pass
 
 def yaourt():
@@ -119,16 +129,16 @@ def servicos():
 	print(colored("\nAdicionar Servicos", 'green'))
 	print (linha)
 	print (colored("A iniciar Serviços!", 'yellow', attrs=['bold']))
-	os.system('sudo systemctl enable upower')
-	os.system('sudo systemctl enable tlp')
-	os.system('sudo systemctl enable smbd')
-	os.system('sudo systemctl enable nmbd')
-	os.system('sudo systemctl enable smbnetfs')
-	os.system('sudo systemctl enable rpc-idmapd')
-	os.system('sudo systemctl enable rpc-mountd')
-	os.system('sudo systemctl enable systemd-readahead-collect')
-	os.system('sudo systemctl enable systemd-readahead-replay')
-	os.system('sudo modprobe vboxdrv')
+	os.system(' systemctl enable upower')
+	os.system(' systemctl enable tlp')
+	os.system(' systemctl enable smbd')
+	os.system(' systemctl enable nmbd')
+	os.system(' systemctl enable smbnetfs')
+	os.system(' systemctl enable rpc-idmapd')
+	os.system(' systemctl enable rpc-mountd')
+	os.system(' systemctl enable systemd-readahead-collect')
+	os.system(' systemctl enable systemd-readahead-replay')
+	os.system(' echo -e "vboxdrv" >> /etc/modules-load.d/virtualbox.conf')
 	input(colored("\nMenu principal ", 'green' )+ "<enter>")
 
 #Funcoes globais
@@ -138,10 +148,9 @@ ficheiro('versao.txt')
 
 #Programa
 print ("Menu")
-menu = ["Utilizadores","GitHub","Apps","Limpar Apps"]
+menu = ["Utilizadores","GitHub","Drivers Intel e Synaptics","Apps","Limpar Apps"]
 os.system("clear")
 while sair != "x":
-	oss()
 	text = colored('Arch Linux', 'blue', attrs=['reverse', 'blink'])
 	print(text)
 	print (linha)
@@ -198,44 +207,52 @@ while sair != "x":
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
 	elif rsp == "2":
 		os.system("clear")
+		dri=("xf86-input-synaptics xf86-input-mouse xf86-input-keyboard xf86-video-intel intel-dri libva-intel-driver")
+		print (linha)
+		print (colored("Drivers: ", 'cyan', attrs=['bold'])+ dri )
+		print (linha)
+		dr=input('Instalar Drivers?''\n(s/n)')
+		if dr == 's':
+			instalar(dri, 'pacman')
+	elif rsp == "3":
+		os.system("clear")
 		print (linha)
 		print (colored("Instalar Apps: ", 'cyan', attrs=['bold']))
 		print (linha)
 		if not os.path.exists('.apps.txt'):
 			open('.apps.txt', 'w').close()
-			dri=("xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
-			xf86-video-intel intel-dri libva-intel-driver ")
 			pkgtoinstall='mpd mpc alsa-utils alsa-plugins \
- 			xorg-server xorg-xinit xorg-server-utils xorg-twm \
- 			xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
- 			xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
- 			xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
-			xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
-			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd \
-			xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh \
-			pcmanfm thunar lxappearance mirage file-roller udisks udisks2 \
-            polkit polkit-gnome gvfs gvfs-smb bash-completion udiskie chromium \
-            zip unrar tar autofs ntfs-3g thunar-archive-plugin thunar-volman pidgin \
-            skype curl git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
- 			bc rsync mlocate bash-completion pkgstats ntfs-3g dosfstools exfat-utils fuse \
- 			fuse-exfat openssh nfs-utils samba smbnetfs  gamin rxvt-unicode pcmanfm gvfs scrot \
- 			thunar tumbler leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
- 			wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 htop \
- 			chromium firefox transmission-gtk pidgin skype gst-plugins-base \
- 			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
- 			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
- 			weechat imap faenza-icon-theme ttf-dejavu tamsyn-font \
- 			libdvdread libdvdnav libdvdcss'
+xorg-server xorg-xinit xorg-server-utils xorg-twm \
+xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
+xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
+xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
+xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
+xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd \
+xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh \
+pcmanfm thunar lxappearance mirage file-roller udisks udisks2 \
+polkit polkit-gnome gvfs gvfs-smb bash-completion udiskie chromium \
+zip unrar tar autofs ntfs-3g thunar-archive-plugin thunar-volman pidgin \
+skype curl git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
+bc rsync mlocate bash-completion pkgstats ntfs-3g dosfstools exfat-utils fuse \
+fuse-exfat openssh nfs-utils samba smbnetfs  gamin rxvt-unicode pcmanfm gvfs scrot \
+thunar tumbler leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
+wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 htop \
+chromium firefox transmission-gtk pidgin skype gst-plugins-base \
+gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
+gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
+weechat imap faenza-icon-theme ttf-dejavu tamsyn-font \
+libdvdread libdvdnav libdvdcss virtualbox firefox'
 			extra = ('mediterraneannight-theme compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
-				gtk-theme-elementary mate-icon-theme-faenza weeplugins-git nano-syntax-highlighting-git \
-				gnome-theme-adwaita zsh-syntax-highlighting android-sdk android-apktool android-sdk-build-tools \
- 			android-sdk-platform-tools android-udev eclipse-android sublime-text gtk-theme-numix-git tlp rssh')
-			lib32=" lib32-mesa-libgl lib32-alsa-plugins"
+gtk-theme-elementary mate-icon-theme-faenza weeplugins-git nano-syntax-highlighting-git \
+gnome-theme-adwaita qtconfiguration zsh-syntax-highlighting android-sdk android-apktool android-sdk-build-tools \
+android-sdk-platform-tools android-udev eclipse-android sublime-text gtk-theme-numix-git tlp rssh')
 			os.system('pacman -Q -q >> .apps.txt')
 			apps = open(pasta + '/' + '.apps.txt', 'r+')
 		pkg = apps.read()
 		pkgtoinstall = pkgtoinstall.split()
-		pkg = pkg.split('\n') 
+		pkg = pkg.split('\n')
+		extras = extra.split(' ') 
+		#print (extras)
 		#lib32 - bibliotecas 32 | apps - aplicaçoes instaladas
 		#pkg - aplicaçoes para instalar !
 		#dri - drivers | extra - nao funcionam
@@ -249,11 +266,10 @@ while sair != "x":
 			if sn == False:
 				lapps = (lapps + " " + linhas)
 		#lapps - aplicaçoes para instalar!
-		dr=input('Instalar Drivers?(s/n)')
-		if dr == 's':
-			instalar(dri)
-		instalar(lapps)
-		#instalar(extra)
+		instalar(lapps, 'pacman')
+		for pacote in extras:
+			instalar(pacote, 'yaourt')
+		oss()
 		input ('Aplicações instaladas !')
 		servicos()
 		os.system("clear")
@@ -263,7 +279,7 @@ while sair != "x":
 		print(linha)
 		ficheiro('.apps.txt')
 		input(colored("\nMenu principal ", 'green' )+ "<enter>")
-	elif rsp == "3":
+	elif rsp == "":
 		os.system("clear")
 		print (linha)
 		print (colored("Limpar Apps: ", 'cyan', attrs=['bold']))
