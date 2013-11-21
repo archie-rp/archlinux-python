@@ -244,9 +244,6 @@ while sair != "x":
 			pass
 		else:
 			yaourt()
-		#dr=input('Instalar Drivers?(s/n)')
-		#if dr == 's':
-		#	instalar(dri)
 		for linhas in pkgtoinstall:
 			sn=linhas in pkg	
 			if sn == False:
@@ -258,7 +255,7 @@ while sair != "x":
 		instalar(lapps)
 		#instalar(extra)
 		input ('Aplicações instaladas !')
-		#servicos()
+		servicos()
 		os.system("clear")
 		print(linha)
 		print (colored("Todas as aplicações estão instaladas!", 'green', attrs=['bold', 'blink']))
