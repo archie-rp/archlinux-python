@@ -94,7 +94,7 @@ def instalar(x):
 def yaourt():
 	os.system("clear")
 	print (linha)
-	print(colored("\nInstalar yaourt ", 'green' ))
+	print(colored("Instalar yaourt ", 'green' ))
 	print (linha)
 	os.system(' cp /etc/pacman.conf pacman.conf')
 	os.system(' cp /etc/sudoers sudoers')
@@ -110,7 +110,7 @@ def yaourt():
 	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/$arch' >> pacman")
 	os.system(' mv pacman /etc/pacman.conf')
 	os.system(' mv sudo /etc/sudoers')
-	os.system(' pacman -Syu --noconfirm yaourt packer')
+	os.system(' pacman -Syu --noconfirm yaourt')
 	pass
 
 def servicos():
@@ -218,22 +218,20 @@ while sair != "x":
  			ntfs-3g thunar-archive-plugin thunar-volman pidgin skype curl \
  			git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
  			bc rsync mlocate bash-completion pkgstats \
- 			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh rssh \
- 			nfs-utils samba smbnetfs tlp gamin gtk-theme-numix-git rxvt-unicode \
+ 			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh \
+ 			nfs-utils samba smbnetfs  gamin rxvt-unicode \
  			pcmanfm gvfs scrot thunar tumbler \
  			leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
- 			wicd wicd-gtk android-sdk android-apktool android-sdk-build-tools \
- 			android-sdk-platform-tools android-udev eclipse-android libmtp\
- 			gvfs-mtp jdk7-openjdk icedtea-web-java7 sublime-text htop \
+ 			wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 sublime-text htop \
  			chromium firefox transmission-gtk pidgin skype gst-plugins-base \
  			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
  			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
- 			weechat imap weeplugins-git nano-syntax-highlighting-git \
- 			gnome-theme-adwaita zsh-syntax-highlighting \
- 			mediterraneannight-theme faenza-icon-theme ttf-dejavu tamsyn-font \
+ 			weechat imap faenza-icon-theme ttf-dejavu tamsyn-font \
  			libdvdread libdvdnav libdvdcss')
-			extra = ('compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
-				gtk-theme-elementary mate-icon-theme-faenza')
+			extra = ('mediterraneannight-theme compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
+				gtk-theme-elementary mate-icon-theme-faenza weeplugins-git nano-syntax-highlighting-git \
+				gnome-theme-adwaita zsh-syntax-highlighting android-sdk android-apktool android-sdk-build-tools \
+ 			android-sdk-platform-tools android-udev eclipse-android gtk-theme-numix-git tlp rssh')
 			lib32=" lib32-mesa-libgl lib32-alsa-plugins"
 			os.system('pacman -Q -q >> .apps.txt')
 			apps = open(pasta + '/' + '.apps.txt', 'r+')
