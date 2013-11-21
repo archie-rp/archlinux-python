@@ -31,10 +31,7 @@ This is a personal script, i made for my netbook asus eepc 1001px :
     * Install basic applications (chromium, vlc, virtualbox, thunar, etc..)
     * Clean unnecessary applications 
 
-
-![alt tag](http://url/to/img.png)
-
-![alt tag](https://raw.github.com/username/projectname/branch/path/to/img.png)
+![My Desktop](http://i43.tinypic.com/126bfad.png)
 
 
 Drivers
