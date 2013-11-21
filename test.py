@@ -86,7 +86,7 @@ def instalar(x):
 	print (linha)
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
-	print (colored("A installar :", 'green') + '"' + colored(x, 'blue'))
+	print (colored("A installar :", 'green') + '"' + colored(x, 'blue') + '"')
 	os.system('yaourt -Syyu --noconfirm ' + x)
 	input("regista apps")
 	pass
@@ -205,31 +205,28 @@ while sair != "x":
 			open('.apps.txt', 'w').close()
 			dri=("xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
 			xf86-video-intel intel-dri libva-intel-driver ")
-			pkgtoinstall=('mpd mpc alsa-utils alsa-plugins \
+			pkgtoinstall='mpd mpc alsa-utils alsa-plugins \
  			xorg-server xorg-xinit xorg-server-utils xorg-twm \
  			xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
  			xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
  			xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
 			xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
-			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd ')
-            
-            pkgtoinstall2=('xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh pcmanfm thunar lxappearance \
- 			mirage file-roller udisks udisks2 polkit polkit-gnome gvfs \
- 			gvfs-smb bash-completion udiskie chromium zip unrar tar autofs \
- 			ntfs-3g thunar-archive-plugin thunar-volman pidgin skype curl \
- 			git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
- 			bc rsync mlocate bash-completion pkgstats \
- 			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh \
- 			nfs-utils samba smbnetfs  gamin rxvt-unicode \
- 			pcmanfm gvfs scrot thunar tumbler ')
- 			
- 			pkgtoinstall3=('leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
- 			wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 htop \
- 			chromium firefox transmission-gtk pidgin skype gst-plugins-base \
- 			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
- 			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
- 			weechat imap faenza-icon-theme ttf-dejavu tamsyn-font \
- 			libdvdread libdvdnav libdvdcss')
+			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd '
+            #pkgtoinstall2 = "xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh \
+            #pcmanfm thunar lxappearance mirage file-roller udisks udisks2 \
+            #polkit polkit-gnome gvfs gvfs-smb bash-completion udiskie chromium \
+            #zip unrar tar autofs ntfs-3g thunar-archive-plugin thunar-volman pidgin \
+            #skype curl git wget mplayer vlc ttf-liberation ttf-freefont lxappearance \
+ 			#bc rsync mlocate bash-completion pkgstats ntfs-3g dosfstools exfat-utils fuse \
+ 			#fuse-exfat openssh nfs-utils samba smbnetfs  gamin rxvt-unicode pcmanfm gvfs scrot \
+ 			#thunar tumbler "
+ 			#pkgtoinstall3='leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
+ 			#wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 htop \
+ 			#chromium firefox transmission-gtk pidgin skype gst-plugins-base \
+ 			#gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
+ 			#gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
+ 			#weechat imap faenza-icon-theme ttf-dejavu tamsyn-font \
+ 			#libdvdread libdvdnav libdvdcss'
 			extra = ('mediterraneannight-theme compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
 				gtk-theme-elementary mate-icon-theme-faenza weeplugins-git nano-syntax-highlighting-git \
 				gnome-theme-adwaita zsh-syntax-highlighting android-sdk android-apktool android-sdk-build-tools \
