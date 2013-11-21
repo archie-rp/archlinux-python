@@ -51,6 +51,6 @@ basic stuff, some extra gtk-themes, icons and awesome wm.
 About
 ------------
 
-If you found any issue or you have something to tell me
+If you found any issue or you have something to say, 
 my email is  -- `archlinuxrp@gmail.com`.
 
