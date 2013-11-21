@@ -211,8 +211,9 @@ while sair != "x":
  			xorg-xinput xorg-xkbcomp xorg-xkbevd xorg-xkbutils \
  			xorg-xkill xorg-xlsatoms xorg-xlsclients xorg-xmessage \
 			xorg-xmodmap xorg-xpr xorg-xprop xorg-xsetroot xorg-xvinfo \
-			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd \
-            xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh pcmanfm thunar lxappearance \
+			xorg-xrandr xorg-xrdb xorg-xrefresh xorg-xset xorg-xwd ')
+            
+            pkgtoinstall2=('xorg-xwininfo xorg-xwud ttf-dejavu xterm zsh pcmanfm thunar lxappearance \
  			mirage file-roller udisks udisks2 polkit polkit-gnome gvfs \
  			gvfs-smb bash-completion udiskie chromium zip unrar tar autofs \
  			ntfs-3g thunar-archive-plugin thunar-volman pidgin skype curl \
@@ -220,9 +221,10 @@ while sair != "x":
  			bc rsync mlocate bash-completion pkgstats \
  			ntfs-3g dosfstools exfat-utils fuse fuse-exfat openssh \
  			nfs-utils samba smbnetfs  gamin rxvt-unicode \
- 			pcmanfm gvfs scrot thunar tumbler \
- 			leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
- 			wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 sublime-text htop \
+ 			pcmanfm gvfs scrot thunar tumbler ')
+ 			
+ 			pkgtoinstall3=('leafpad epdfview nitrogen ttf-bitstream-vera ttf-dejavu \
+ 			wicd wicd-gtk libmtp gvfs-mtp jdk7-openjdk icedtea-web-java7 htop \
  			chromium firefox transmission-gtk pidgin skype gst-plugins-base \
  			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
  			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
@@ -231,7 +233,7 @@ while sair != "x":
 			extra = ('mediterraneannight-theme compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
 				gtk-theme-elementary mate-icon-theme-faenza weeplugins-git nano-syntax-highlighting-git \
 				gnome-theme-adwaita zsh-syntax-highlighting android-sdk android-apktool android-sdk-build-tools \
- 			android-sdk-platform-tools android-udev eclipse-android gtk-theme-numix-git tlp rssh')
+ 			android-sdk-platform-tools android-udev eclipse-android sublime-text gtk-theme-numix-git tlp rssh')
 			lib32=" lib32-mesa-libgl lib32-alsa-plugins"
 			os.system('pacman -Q -q >> .apps.txt')
 			apps = open(pasta + '/' + '.apps.txt', 'r+')
