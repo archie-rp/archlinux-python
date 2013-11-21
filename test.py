@@ -30,6 +30,8 @@ i = 0
 u = 0
 erro = ""
 
+#Funcoes
+
 def ficheiro(nome):
 	if not os.path.exists(nome):
 		pass
@@ -41,16 +43,13 @@ def oss():
 	versao = open(pasta + '/' + 'versao.txt', 'r+')
 	vt = versao.read()
 	ficheiro('versao.txt')
-	print (vt) 
+	#print (vt) 
 	sis = vt.find('x86_64')
 	if sis != -1:
-		print (sis)
-		print ('mete multilib')
+		print ('Sistema x86_64') 
 	else:
-		print (sis)
-		print ('e sistema 32')
+		print ('Sistema x86')
 
-#Funcoes
 def butil(u):
 	lista=("cat /etc/passwd | grep '/home' | cut -d: -f1")
 	os.system(lista + " >> .users.txt")
@@ -82,14 +81,14 @@ def listusers():
 		else:
 			print (colored(u , 'yellow') ,utilizadores[u])
 
-
 def instalar(x):
 	os.system("clear")
 	print (linha)
 	print (colored("Instalar pacotes: ", 'cyan', attrs=['bold']))
 	print (linha)
-	print ("A installar ..", x)
-	os.system('yaourt -Syyu --noconfirm' + x)
+	print (colored("A installar :", 'green') + '"' + colored(x, 'blue'))
+	os.system('yaourt -Syyu --noconfirm ' + x)
+	input("regista apps")
 	pass
 
 def yaourt():
@@ -101,12 +100,19 @@ def yaourt():
 	os.system(' cp /etc/sudoers sudoers')
 	os.system(" sed -e 's/SigLevel\s\s\s/#SigLevel/' pacman.conf > pacman")
 	os.system(" sed -e 's/#\s%wheel\sALL=(ALL)\sALL/%wheel ALL=(ALL) ALL/' sudoers > sudo")
+	uname = os.system('uname -a >> versao.txt')
+	versao = open(pasta + '/' + 'versao.txt', 'r+')
+	vt = versao.read()
+	ficheiro('versao.txt')
+	sis = vt.find('x86_64')
+	if sis != -1:
+		os.system(" echo -e '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist' >> pacman")
 	os.system(" echo -e '\n[archlinuxfr]\nServer = http://repo.archlinux.fr/$arch' >> pacman")
 	os.system(' mv pacman /etc/pacman.conf')
 	os.system(' mv sudo /etc/sudoers')
 	os.system(' pacman -Syu --noconfirm yaourt packer')
-	instalar('yaourt')
 	pass
+
 def servicos():
 	os.system("clear")
 	print (linha)
@@ -128,6 +134,7 @@ def servicos():
 #Funcoes globais
 ficheiro('.users.txt')
 ficheiro('.apps.txt')
+ficheiro('versao.txt')
 
 #Programa
 print ("Menu")
@@ -159,7 +166,6 @@ while sair != "x":
 		print (colored('1' , 'yellow') ,'Remover Utilizador')
 		print(linha)
 		r = input('Selecionar:')
-
 		if r=='0':
 			os.system('clear')
 			print (linha)
@@ -177,13 +183,8 @@ while sair != "x":
 			print (linha)
 			rsp=input(colored('Número: ', 'green'))
 			os.system('sudo userdel -r ' + butil(rsp))
-			#input(colored("\nMenu principal ", 'green' )+ "<enter>")
 		else:
-			pass
-
-		
- 
-		
+			pass	
 	elif rsp == "1":
 		os.system("clear")
 		print (linha)
@@ -202,8 +203,8 @@ while sair != "x":
 		print (linha)
 		if not os.path.exists('.apps.txt'):
 			open('.apps.txt', 'w').close()
-			dri="xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
-			xf86-video-intel intel-dri libva-intel-driver "
+			dri=("xf86-input-synaptics xf86-input-mouse xf86-input-keyboard \
+			xf86-video-intel intel-dri libva-intel-driver ")
 			pkgtoinstall=('mpd mpc alsa-utils alsa-plugins \
  			xorg-server xorg-xinit xorg-server-utils xorg-twm \
  			xorg-xdpyinfo xorg-xdriinfo xorg-xev xorg-xgamma \
@@ -228,35 +229,40 @@ while sair != "x":
  			gst-plugins-base-libs gst-plugins-good gst-plugins-bad \
  			gst-plugins-ugly gst-libav vlc xbmc libbluray libquicktime \
  			weechat imap weeplugins-git nano-syntax-highlighting-git \
- 			adwaita-x-dark-and-light-theme compton-git gnome-theme-adwaita \
- 			mediterraneannight-theme gtk-theme-hope faenza-icon-theme zukitwo-themes \
- 			gtk-theme-elementary mate-icon-theme-faenza ttf-dejavu tamsyn-font \
- 			ttf-ubuntu-font-family zsh-syntax-highlighting \
+ 			gnome-theme-adwaita zsh-syntax-highlighting \
+ 			mediterraneannight-theme faenza-icon-theme ttf-dejavu tamsyn-font \
  			libdvdread libdvdnav libdvdcss')
-			lib32="lib32-mesa-libgl lib32-alsa-plugins"
+			extra = ('compton-git adwaita-x-dark-and-light-theme gtk-theme-hope zukitwo-themes \
+				gtk-theme-elementary mate-icon-theme-faenza')
+			lib32=" lib32-mesa-libgl lib32-alsa-plugins"
 			os.system('pacman -Q -q >> .apps.txt')
-		apps = open(pasta + '/' + '.apps.txt', 'r+')
+			apps = open(pasta + '/' + '.apps.txt', 'r+')
 		pkg = apps.read()
 		pkgtoinstall = pkgtoinstall.split()
 		pkg = pkg.split('\n') 
-		instpkg=len(pkgtoinstall)
+		#lib32 - bibliotecas 32 | apps - aplicaçoes instaladas
+		#pkg - aplicaçoes para instalar !
+		#dri - drivers | extra - nao funcionam
 		lapps = ""
 		if 'yaourt' in pkg:
 			pass
 		else:
 			yaourt()
-			pass
-		dr=input('Instalar Drivers?(s/n)')
-		if dr == 's':
-			instalar(dri)
-
+		#dr=input('Instalar Drivers?(s/n)')
+		#if dr == 's':
+		#	instalar(dri)
 		for linhas in pkgtoinstall:
 			sn=linhas in pkg	
 			if sn == False:
 				lapps = (lapps + " " + linhas)
+		#lapps - aplicaçoes para instalar!
+		dr=input('Instalar Drivers?(s/n)')
+		if dr == 's':
+			instalar(dri)
 		instalar(lapps)
+		#instalar(extra)
 		input ('Aplicações instaladas !')
-		servicos()
+		#servicos()
 		os.system("clear")
 		print(linha)
 		print (colored("Todas as aplicações estão instaladas!", 'green', attrs=['bold', 'blink']))
