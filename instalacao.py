@@ -10,7 +10,8 @@ from termcolor import colored, cprint
 os.system("clear")
 hostname = os.uname()[1]
 username = os.getlogin()
-name = ' Feito por ' + username + ' '
+feito = ' Feito por ' + username + ' '
+name = ' Utilizador ' + username + ' '
 host = ' Maquina : ' + hostname + ' '
 n =len(name)
 h =len(host) 
@@ -154,6 +155,7 @@ while sair != "x":
 	text = colored('Arch Linux', 'blue', attrs=['reverse', 'blink'])
 	print(text)
 	print (linha)
+	print (feito)
 	print (name)
 	print (host)
 	print (linha)
