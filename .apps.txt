@@ -182,6 +182,7 @@ gzip
 harfbuzz
 harfbuzz-icu
 hdparm
+help2man
 hicolor-icon-theme
 hspell
 htop
@@ -526,6 +527,7 @@ pcmciautils
 pcre
 perl
 perl-error
+perl-locale-gettext
 perl-xml-parser
 perl-xml-simple
 pidgin
@@ -539,6 +541,7 @@ poppler
 poppler-glib
 popt
 portaudio
+preload
 procps-ng
 psmisc
 pth
@@ -656,6 +659,7 @@ usbmuxd
 usbutils
 util-linux
 v4l-utils
+verynice
 vi
 vicious
 videoproto
