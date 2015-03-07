@@ -1,4 +1,4 @@
-,#! /usr/bin/env python
+#! /usr/bin/env python
 #Includes
 import os
 import sys
@@ -9,12 +9,12 @@ from termcolor import colored, cprint
 #Escrever INFO
 os.system("clear")
 hostname = os.uname()[1]
-username = os.getlogin()
+username = ("Archierp")
 feito = ' Feito por ' + username + ' '
 name = ' Utilizador ' + username + ' '
 host = ' Maquina : ' + hostname + ' '
 n =len(name)
-h =len(host) 
+h =len(host)
 if n > h :
 	e = n
 else:
@@ -23,7 +23,7 @@ else:
 
 # Variaveis
 global m_Home
-m_Home = '/home/' + os.getlogin()
+m_Home = '/home/' + username
 pasta=os.getcwd()
 linha =  colored("#"*e, 'cyan')
 sair = ""
@@ -38,18 +38,18 @@ def ficheiro(nome):
 		pass
 	else:
 		os.remove(nome)
-	
+
 def oss():
 	uname = os.system('uname -a >> versao.txt')
 	versao = open(pasta + '/' + 'versao.txt', 'r+')
 	vt = versao.read()
 	ficheiro('versao.txt')
-	#print (vt) 
+	#print (vt)
 	lib32=" lib32-mesa-libgl lib32-alsa-plugins"
 	sis = vt.find('x86_64')
 	if sis != -1:
 		print ('Sistema x86_64')
-		instalar(lib32, 'pacman') 
+		instalar(lib32, 'pacman')
 	else:
 		print ('Sistema x86')
 	return (sis)
@@ -60,7 +60,7 @@ def butil(u):
 	users = open(pasta + '/' + '.users.txt', 'r+')
 	users = users.read()
 	ficheiro('.users.txt')
-	utilizadores= users.split('\n') 
+	utilizadores= users.split('\n')
 	u=int(u)
 	u=utilizadores[u]
 	print (u)
@@ -77,7 +77,7 @@ def listusers():
 	users = open(pasta + '/' + '.users.txt', 'r+')
 	users = users.read()
 	ficheiro('.users.txt')
-	utilizadores= users.split('\n') 
+	utilizadores= users.split('\n')
 	print ('\nExistentes:')
 	for u in range(len(utilizadores)):
 		if utilizadores[u] == '':
@@ -186,7 +186,7 @@ while sair != "x":
 			os.system('sudo useradd -m -g users -G wheel,storage,video,audio,network -s /bin/bash ' + utilizador)
 			print (colored("Password Utilizador: ", 'red', attrs=['bold']))
 			os.system('\nsudo passwd ' + utilizador)
-			input(colored("\nMenu principal ", 'green' )+ "<enter>")	
+			input(colored("\nMenu principal ", 'green' )+ "<enter>")
 		elif r=='1':
 			listusers()
 			print (linha)
@@ -195,13 +195,13 @@ while sair != "x":
 			rsp=input(colored('Número: ', 'green'))
 			os.system('sudo userdel -r ' + butil(rsp))
 		else:
-			pass	
+			pass
 	elif rsp == "1":
 		os.system("clear")
 		print (linha)
 		print (colored("GitHub: ", 'cyan', attrs=['bold']))
 		print (linha)
-		instalar('xclip git')		
+		instalar('xclip git')
 		github_utilizador=input(colored('\nGitHub','yellow')+ colored('@', 'red') + 'Nome:')
 		os.system('git config --global user.name ' + github_utilizador)
 		github_email=input(colored('GitHub','yellow') + colored('@', 'red') +  'Email:')
@@ -252,7 +252,7 @@ gnome-theme-adwaita qtconfiguration zsh-syntax-highlighting android-sdk sublime-
 		pkg = apps.read()
 		pkgtoinstall = pkgtoinstall.split()
 		pkg = pkg.split('\n')
-		extras = extra.split(' ') 
+		extras = extra.split(' ')
 		#print (extras)
 		#lib32 - bibliotecas 32 | apps - aplicaçoes instaladas
 		#pkg - aplicaçoes para instalar !
@@ -263,7 +263,7 @@ gnome-theme-adwaita qtconfiguration zsh-syntax-highlighting android-sdk sublime-
 		else:
 			yaourt()
 		for linhas in pkgtoinstall:
-			sn=linhas in pkg	
+			sn=linhas in pkg
 			if sn == False:
 				lapps = (lapps + " " + linhas)
 		#lapps - aplicaçoes para instalar!
